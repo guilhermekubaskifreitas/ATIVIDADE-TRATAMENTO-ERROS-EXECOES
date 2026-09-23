@@ -1,11 +1,11 @@
-## O que é tratamento de erros?
+## 1.O que é tratamento de erros?
 É o conjunto de práticas usadas para prever, detectar e responder a situações que podem impedir o funcionamento correto de um programa.
-## O que é uma exceção?
+## 1.1 O que é uma exceção?
 Basicamente é um evento que interrompe o fluxo normal de execução de um programa, geralmente lançado quando algo inesperado acontece, como por exemplo uma divisão por zero, um valor inválido, uma falha de rede, etc. Ela pode ser "capturada" e tratada em tempo de execução.
-## Diferença entre erro e exceção:
+## 1.2 Diferença entre erro e exceção:
 * O erro é um termo mais amplo, pode ser associado a erro de sintaxe, erro lógico ou erro de sistema. Nem todo erro pode ser capturado durante a execução do código, como por exemplo erro de sintaxe, que impede a execução do código.
 * Exceção é um tipo específico de erro que ocorre em tempo de execução e que pode ser lançado e capturado pelo próprio código, permitindo que o programa continue rodando de forma controlada.
-  ## Por que é importante tratar erros e exceções?
+  ## 1.3 Por que é importante tratar erros e exceções?
 * Evita que a aplicação pare de funcionar de forma abrupta.
 * Permite exibir mensagens claras ao usuário em vez de mensagens técnicas confusas.
 * Facilita a manutenção e a depuração do código.
@@ -124,11 +124,8 @@ function transferir(saldo: number, valor: number): number {
   return novoSaldo;
 }
 
-// --- Testes ---
-
 let saldoConta = 1000;
 
-// Situação 1: valor inválido (negativo)
 try {
   saldoConta = transferir(saldoConta, -50);
 } catch (erro) {
@@ -139,7 +136,6 @@ try {
   }
 }
 
-// Situação 2: saldo insuficiente
 try {
   saldoConta = transferir(saldoConta, 5000);
 } catch (erro) {
@@ -150,7 +146,6 @@ try {
   }
 }
 
-// Situação 3: transferência válida
 try {
   saldoConta = transferir(saldoConta, 200);
   console.log("Saldo atual:", saldoConta);
@@ -164,8 +159,8 @@ try {
 Se `valor <= 0`, lança `ValorInvalidoError`.
 Se `valor > saldo`, lança `SaldoInsuficienteError`.
 * **3.** Cada chamada da função é envolvida em um `try/catch`. Dentro do `catch`, o uso de `instanceof` permite identificar exatamente qual tipo de erro ocorreu e reagir de forma específica a cada caso.
-* **4.Situação 1** `(valor -50)` dispara `ValorInvalidoError` — a transferência não é realizada e o saldo permanece 1000.
-* **5.Situação 2** `(transferir 5000 de um saldo de 1000)` dispara `SaldoInsuficienteError` — novamente a operação é bloqueada.
-* **6.Situação 3** `(transferir 200)` é válida, é executada com sucesso e o saldo é atualizado para 800.
+* **4.Situação 1 (linhas 129-137)** `(valor -50)` dispara `ValorInvalidoError` — a transferência não é realizada e o saldo permanece 1000.
+* **5.Situação 2 (linhas 139-147)** `(transferir 5000 de um saldo de 1000)` dispara `SaldoInsuficienteError` — novamente a operação é bloqueada.
+* **6.Situação 3 (linhas 149-155)** `(transferir 200)` é válida, é executada com sucesso e o saldo é atualizado para 800.
  
   Essa abordagem evita que o programa quebre diante de uma entrada inválida e ainda comunica de forma clara e específica qual foi o problema em cada tentativa de transferência.
